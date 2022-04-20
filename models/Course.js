@@ -24,6 +24,9 @@ var courseSchema = Schema( {
     independent_study: Boolean,
     term: Number,
     description: String,
+
+    // Added strTimes to schema as a list of strings
+    strTimes:[String],
 } );
 
 module.exports = mongoose.model( 'Course', courseSchema );

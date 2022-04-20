@@ -191,7 +191,6 @@ function getNum(coursenum){
   return coursenum.slice(0,i);
 }
 
-
 function times2str(times){
   // convert a course.times object into a list of strings
   // e.g ["Lecture:Mon,Wed 10:00-10:50","Recitation: Thu 5:00-6:30"]
@@ -200,8 +199,9 @@ function times2str(times){
   } else {
     return times.map(x => time2str(x))
   }
-  
 }
+
+
 function min2HourMin(m){
   // converts minutes since midnight into a time string, e.g.
   // 605 ==> "10:05"  as 10:00 is 60*10=600 minutes after midnight
@@ -226,8 +226,6 @@ function time2str(time){
   return `${meetingType}: ${days.join(",")}: ${min2HourMin(start)}-${min2HourMin(end)} ${location}`
 }
 
-
-
 /* ************************
   Loading (or reloading) the data into a collection
    ************************ */
@@ -241,6 +239,11 @@ app.get('/upsertDB',
       const {subject,coursenum,section,term}=course;
       const num = getNum(coursenum);
       course.num=num
+
+      // Added course.strTimes
+      // Don't know why it's the same order as default
+      course.strTimes = [course.times['days'],course.times['start'], course.times['end']];
+
       course.suffix = coursenum.slice(num.length)
       await Course.findOneAndUpdate({subject,coursenum,section,term},course,{upsert:true})
     }
@@ -257,7 +260,10 @@ app.post('/courses/bySubject',
     const courses = await Course.find({subject:subject,independent_study:false}).sort({term:1,num:1,section:1})
     
     res.locals.courses = courses
-    res.locals.times2str = times2str
+    
+    // Removing times2Str in courses
+    // res.locals.times2str = times2str
+
     //res.json(courses)
     res.render('courselist')
   }
@@ -269,7 +275,10 @@ app.get('/courses/show/:courseId',
     const {courseId} = req.params;
     const course = await Course.findOne({_id:courseId})
     res.locals.course = course
-    res.locals.times2str = times2str
+
+    // Removing times2Str in courses
+    //res.locals.times2str = times2str
+
     //res.json(course)
     res.render('course')
   }
@@ -296,7 +305,10 @@ app.post('/courses/byInst',
                .sort({term:1,num:1,section:1})
     //res.json(courses)
     res.locals.courses = courses
-    res.locals.times2str = times2str
+   
+    // Removing times2Str in courses
+    // res.locals.times2str = times2str
+
     res.render('courselist')
   }
 )

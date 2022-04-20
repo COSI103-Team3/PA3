@@ -19,7 +19,7 @@
               <input type="text" name="subject" 
                      placeholder="e.g. COSI">
             <input type="submit">
-        </form>
+        </form> 
         <br>
         <form method="post" action="/courses/byInst">
             Show Courses by Instructor Email: 
@@ -28,6 +28,13 @@
             <input type="submit">
         </form>
         <br>
+        <!--added find courses by keyword-->
+        <form method="post" action="/courses/byKeyword">
+            Show Courses by Keyword: 
+            <input type="text" name="keyword" 
+                   placeholder="Problem Solving">
+            <input type="submit">
+        </form>
         <a href="/schedule/show">Show Schedule</a>
     <% } %>
 

@@ -284,6 +284,21 @@ app.get('/courses/show/:courseId',
   }
 )
 
+app.post('/courses/byKeyword',
+  // show list of courses with a given keyword
+  async (req,res,next) => {
+    const {keyword} = req.body;
+    const courses = await Course.find({name:{$regex : keyword},independent_study:false}).sort({term:1,num:1,section:1})
+    res.locals.courses = courses
+    
+    // Removing times2Str in courses
+    // res.locals.times2str = times2str
+
+    //res.json(courses)
+    res.render('courselist')
+  }
+)
+
 app.get('/courses/byInst/:email',
   // show a list of all courses taught by a given faculty
   async (req,res,next) => {

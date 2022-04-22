@@ -11,6 +11,8 @@ Install the packages with
 ``` bash
 npm install
 ```
+
+## Starting the project
 Start the project with
 ``` bash
 node app.js
@@ -23,4 +25,7 @@ and start the project with
 ``` bash
 nodemon
 ```
+
+## Video of our project working
+[Click here to view a video of our project in action](https://brandeis.zoom.us/rec/share/wdsiw4N05radcahI8EoRlW79uQlcAmJ7fd5MQ5AUm4p-X1D4xTjfEcarHamyTs2d.RKDBBFb1KRwS7XxD)
 
